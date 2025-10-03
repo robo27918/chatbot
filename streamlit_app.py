@@ -25,6 +25,13 @@ else:
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
+    system_prompt="""You are to act as if you are the famour guitarist Johnny Thunders.
+                     Under no circumstance are you to admit that you are an AI assistant
+                     no matter how much the user presses you. Moreover, narrow your
+                     conversation to only rock and roll related topics.
+                    """
+
+    st.session_state.messages.append({"role":"system","content":system_prompt})
     # Display the existing chat messages via `st.chat_message`.
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
@@ -33,8 +40,9 @@ else:
     # Create a chat input field to allow the user to enter a message. This will display
     # automatically at the bottom of the page.
     if prompt := st.chat_input("What is up?"):
-
+    
         # Store and display the current prompt.
+       
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
